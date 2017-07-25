@@ -48,8 +48,10 @@ public class TestCasesForAccount {
 				try {
 				Account testerAcc = service.createAccount(tester1, 100);
 				assertEquals(150, service.deposit(testerAcc.getAccountNo(), 50).getBalance(), 0);
-				} catch (invalidAccountException | insufficientBalanceException ex) {
-					System.out.println(ex.getMessage());
+				} catch (invalidAccountException e) {
+					System.out.println(e.getMessage());
+				} catch (insufficientBalanceException e) {
+					System.out.println(e.getMessage());
 				}
 	}
 	
@@ -76,8 +78,14 @@ public class TestCasesForAccount {
 				try{
 				Account testerAcc1 = service.createAccount(tester3,  100);
 				assertEquals(90, service.withdraw(testerAcc1.getAccountNo(), 10).getBalance(), 0);
-				} catch (negativeBalanceException | exceedWithdrawLimitException | invalidAccountException | insufficientBalanceException ex) {
-					System.out.println(ex.getMessage());
+				} catch (negativeBalanceException e)  {
+					System.out.println(e.getMessage());
+				} catch (exceedWithdrawLimitException e) {
+					System.out.println(e.getMessage());
+				} catch (invalidAccountException e) {
+					System.out.println(e.getMessage());
+				} catch (insufficientBalanceException e) {
+					System.out.println(e.getMessage());
 				}
 	}
 
@@ -149,8 +157,12 @@ public class TestCasesForAccount {
 			Account testerAcc6= service.createAccount(tester8, 1000);
 			Account testerAcc7= service.createAccount(tester9, 1000);
 			assertEquals(900, service.fundTransfer(testerAcc6.getAccountNo(), testerAcc7.getAccountNo(), 100).getBalance(), 0);
-			} catch(invalidAccountException | insufficientFundException | insufficientBalanceException ex) {
-				System.out.println(ex.getMessage());
+			} catch(invalidAccountException e) {
+				System.out.println(e.getMessage());
+			} catch(insufficientFundException e) {
+				System.out.println(e.getMessage());
+			} catch(insufficientBalanceException e) {
+				System.out.println(e.getMessage());
 			}
 			
 
@@ -201,8 +213,10 @@ public class TestCasesForAccount {
 			try{
 			Account testerAcc12= service.createAccount(tester14, 100);
 			assertEquals(100 ,service.showBalance(testerAcc12.getAccountNo()).getBalance(), 0);
-			} catch(invalidAccountException | insufficientBalanceException ex) {
-				System.out.println(ex.getMessage());
+			} catch(invalidAccountException e) {
+				System.out.println(e.getMessage());
+			} catch(insufficientBalanceException e) {
+				System.out.println(e.getMessage());
 			}
 			
 			

@@ -11,24 +11,10 @@ import assignment.bank.exceptions.negativeBalanceException;
 
 public interface IAccountRepo {
 		
-	public String addAccount(Account a);
+	public boolean addAccount(Account a);
 	
 	public Account findAccount(int accNo) throws invalidAccountException;
-	
-	public Account showBalance(int accNo) throws invalidAccountException;
-	
-	public Account deposit (int accNo, double amount) throws invalidAccountException;
-	
-	public Account withdraw(int accNo, double amount) throws negativeBalanceException, exceedWithdrawLimitException, invalidAccountException;
-	
-	public Account fundTransfer(int accNoTo, int accNoFrom, double amount) throws negativeBalanceException;
-	
-	public ArrayList<Transaction> printTransactions(int accNo, Date startDate, Date endDate) throws invalidAccountException;
-	
-	public ArrayList<Transaction> print10Transactions(int accNo) throws invalidAccountException;
-	
-	public Account findOne(int accNo) throws invalidAccountException;
-	
+
 }
 
 

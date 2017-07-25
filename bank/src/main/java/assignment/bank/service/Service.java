@@ -6,6 +6,8 @@ import java.util.Date;
 import assignment.bank.Account;
 import assignment.bank.Transaction;
 import assignment.bank.exceptions.exceedWithdrawLimitException;
+import assignment.bank.exceptions.insufficientBalanceException;
+import assignment.bank.exceptions.insufficientFundException;
 import assignment.bank.exceptions.invalidAccountException;
 import assignment.bank.exceptions.negativeBalanceException;
 import assignment.bank.repository.AccountRepo;
@@ -16,18 +18,20 @@ public class Service implements IService {
 	ArrayList<Account> accArray = new ArrayList<Account>();
 	GenerateId generator = new GenerateId();
 	
-	public String createAccount(Account a) {
-		StringBuilder sb = new StringBuilder(40);
-		
+	public String createAccount(Account a) throws invalidAccountException, insufficientBalanceException {
+			
 		if(a == null) {
-			sb.append("Account should not be null"); //Check if account object passed is null
-			return sb.toString();
+			throw new invalidAccountException("Account number passed is zero");
 		}
 		
 		if(a.getAccountNo() == 0) {
-			sb.append("Account Number should not be zero"); //Check if the account number is zero
-			return sb.toString();
+			throw new invalidAccountException("Account number passed is zero");
 		}
+		
+		if(a.getBalance() < 100) {
+			throw new insufficientBalanceException("Balance is less than 100");
+		}
+		
 		
 		return accR.addAccount(a);
 		
@@ -37,31 +41,72 @@ public class Service implements IService {
 
 	public Account showBalance(int accNo) throws invalidAccountException {
 		
+		if(accNo == 0) { //If account number passed is zero
+			throw new invalidAccountException("Account number passed is zero");
+		}
+		
 		return accR.findOne(accNo);
 	
 	}
 
-	public Account withdraw(Account a, double amount) throws negativeBalanceException, exceedWithdrawLimitException {
-		return accR.withdraw(a, amount);
+	public Account withdraw(int accNo, double amount) throws negativeBalanceException, exceedWithdrawLimitException, invalidAccountException {
+		if(accNo == 0){ //If account number passed is zero
+			throw new invalidAccountException("Account number passed is zero");
+		}
+		
+		return accR.withdraw(accNo, amount);
 	}
 
-	public Account deposit (Account a, double amount) {
-		return accR.deposit(a, amount);
+	
+	
+	
+	public Account deposit (int accNo, double amount) throws invalidAccountException  {
+		return accR.deposit(accNo, amount);
 	}
 
-	public Account fundTransfer(int accNoTo, int accNoFrom, double amount) {
+	
+	
+	
+	public Account fundTransfer(int accNoTo, int accNoFrom, double amount) throws invalidAccountException, insufficientFundException {
+		
+		
+		if(accNoTo == 0 || accNoFrom == 0) {
+			throw new invalidAccountException("Account number passed is zero");
+		}
+		
+		if(accR.findOne(accNoFrom).getBalance() < amount) {
+			throw new insufficientFundException("Insufficient funds in sender's account");
+		}
 
-		return null;
+		if(accR.findOne(accNoTo) == null) { 
+			throw new invalidAccountException("Account number not found in AccountRepo");
+		}
+		
+		
+		if(accR.findOne(accNoFrom) == null) { 
+			throw new invalidAccountException("Account number not found in AccountRepo");
+		}
+		
+		
+		return accR.fundTransfer(accNoTo, accNoFrom, amount);
 	}
 
-	public Transaction[] printTransactions(int accNo, Date startDate, Date endDate) {
-
-		return null;
+	public ArrayList<Transaction> printTransactions(int accNo, Date startDate, Date endDate) throws invalidAccountException {
+		if(accNo == 0){ //If account number passed is zero
+			throw new invalidAccountException("Account number passed is zero");
+		}
+		
+		return accR.printTransactions(accNo, startDate, endDate);
+		
 	}
 
-	public Transaction[] print10Transactions(int accNo) {
-
-		return null;
+	public ArrayList<Transaction> print10Transactions(int accNo) throws invalidAccountException {
+		if(accNo == 0){ //If account number passed is zero
+			throw new invalidAccountException("Account number passed is zero");
+		}
+		
+		return accR.print10Transactions(accNo);
+		
 	}
 
 }

@@ -5,11 +5,11 @@ public class GenerateId {
 	private static int bankAccId = 10000;
 	private static int transId = 10000;
 	
-	public int generateBankAccId() {
+	public static int generateBankAccId() {
 		return bankAccId++;
 	}
 	
-	public int generateTransId() {
+	public static int generateTransId() {
 		return transId++;
 	}
 

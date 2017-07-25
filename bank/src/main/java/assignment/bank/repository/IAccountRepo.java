@@ -17,15 +17,15 @@ public interface IAccountRepo {
 	
 	public Account showBalance(int accNo);
 	
-	public Account deposit (Account a, double amount);
+	public Account deposit (int accNo, double amount) throws invalidAccountException;
 	
-	public Account withdraw(Account a, double amount) throws negativeBalanceException, exceedWithdrawLimitException;
+	public Account withdraw(int accNo, double amount) throws negativeBalanceException, exceedWithdrawLimitException, invalidAccountException;
 	
-	public Transaction[] printTransactions(int accNo, Date startDate, Date endDate);
+	public Account fundTransfer(int accNoTo, int accNoFrom, double amount) throws negativeBalanceException;
 	
-	public Transaction[] print10Transactions(int accNo);
+	public ArrayList<Transaction> printTransactions(int accNo, Date startDate, Date endDate) throws invalidAccountException;
 	
-	public ArrayList<Account> findAll(int accNo) throws invalidAccountException;
+	public ArrayList<Transaction> print10Transactions(int accNo) throws invalidAccountException;
 	
 	public Account findOne(int accNo) throws invalidAccountException;
 	

@@ -20,13 +20,13 @@ public class AccountRepo implements IAccountRepo {
 
 	}
 
-	public Account findAccount(int accNo) {
+	public Account findAccount(int accNo) throws invalidAccountException {
 
 		for (int i = 0; i < accArray.size(); i++) {
 			if (accArray.get(i) == null) {
 				break;
 			}
-		}
+		}		
 
 		for (int i = 0; i < accArray.size(); i++) {
 			if (accNo == (accArray.get(i).getAccountNo())) {
@@ -34,17 +34,18 @@ public class AccountRepo implements IAccountRepo {
 			}
 		}
 
-		return null;
+		throw new invalidAccountException("Account not found in AccountRepo");
 	}
+	
 
-	public Account showBalance(int accNo) {
+	public Account showBalance(int accNo) throws invalidAccountException {
 		for (int i = 0; i < accArray.size(); i++) {
 			if (accNo == (accArray.get(i).getAccountNo())) {
 				return accArray.get(i); // return the "found" account object
 			}
 		}
 
-		return null;
+		throw new invalidAccountException("Account not found in AccountRepo");
 	}
 
 	public Account deposit(int accNo, double amount) throws invalidAccountException {
@@ -202,7 +203,7 @@ public class AccountRepo implements IAccountRepo {
 	//
 	// Date toDate = cal2.getTime();
 
-	public Account findOne(int accNo) {
+	public Account findOne(int accNo) throws invalidAccountException {
 
 		for (int i = 0; i < accArray.size(); i++) {
 			if (accArray.get(i) == null) {
@@ -212,7 +213,7 @@ public class AccountRepo implements IAccountRepo {
 				return accArray.get(i);
 			}
 		}
-		return null;
+		throw new invalidAccountException("Account not found in AccountRepo");
 
 	}
 

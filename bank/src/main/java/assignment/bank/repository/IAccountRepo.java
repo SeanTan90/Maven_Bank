@@ -13,9 +13,9 @@ public interface IAccountRepo {
 		
 	public String addAccount(Account a);
 	
-	public Account findAccount(int accNo);
+	public Account findAccount(int accNo) throws invalidAccountException;
 	
-	public Account showBalance(int accNo);
+	public Account showBalance(int accNo) throws invalidAccountException;
 	
 	public Account deposit (int accNo, double amount) throws invalidAccountException;
 	

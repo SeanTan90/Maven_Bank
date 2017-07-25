@@ -48,8 +48,8 @@ public class TestCasesForAccount {
 				try {
 				Account testerAcc = service.createAccount(tester1, 100);
 				assertEquals(150, service.deposit(testerAcc.getAccountNo(), 50).getBalance(), 0);
-				} catch (invalidAccountException | insufficientBalanceException e) {
-					System.out.println(e.getMessage());
+				} catch (invalidAccountException | insufficientBalanceException ex) {
+					System.out.println(ex.getMessage());
 				}
 	}
 	
@@ -76,8 +76,8 @@ public class TestCasesForAccount {
 				try{
 				Account testerAcc1 = service.createAccount(tester3,  100);
 				assertEquals(90, service.withdraw(testerAcc1.getAccountNo(), 10).getBalance(), 0);
-				} catch (negativeBalanceException | exceedWithdrawLimitException | invalidAccountException | insufficientBalanceException e) {
-					System.out.println(e.getMessage());
+				} catch (negativeBalanceException | exceedWithdrawLimitException | invalidAccountException | insufficientBalanceException ex) {
+					System.out.println(ex.getMessage());
 				}
 	}
 
@@ -149,8 +149,8 @@ public class TestCasesForAccount {
 			Account testerAcc6= service.createAccount(tester8, 1000);
 			Account testerAcc7= service.createAccount(tester9, 1000);
 			assertEquals(900, service.fundTransfer(testerAcc6.getAccountNo(), testerAcc7.getAccountNo(), 100).getBalance(), 0);
-			} catch(invalidAccountException | insufficientFundException | insufficientBalanceException e) {
-				System.out.println(e.getMessage());
+			} catch(invalidAccountException | insufficientFundException | insufficientBalanceException ex) {
+				System.out.println(ex.getMessage());
 			}
 			
 
@@ -201,8 +201,8 @@ public class TestCasesForAccount {
 			try{
 			Account testerAcc12= service.createAccount(tester14, 100);
 			assertEquals(100 ,service.showBalance(testerAcc12.getAccountNo()).getBalance(), 0);
-			} catch(invalidAccountException | insufficientBalanceException e) {
-				System.out.println(e.getMessage());
+			} catch(invalidAccountException | insufficientBalanceException ex) {
+				System.out.println(ex.getMessage());
 			}
 			
 			
